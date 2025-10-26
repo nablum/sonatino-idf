@@ -1,21 +1,24 @@
-// audioconfig.c
 #include "audioconfig.h"
 #include "esp_log.h"
+#include "esp_check.h"
+#include <cstring>
 
 static const char *TAG = "AUDIO_CONFIG";
 
-i2s_chan_handle_t tx_chan = NULL;
-i2s_chan_handle_t rx_chan = NULL;
+// Global I2S handles
+i2s_chan_handle_t tx_chan = nullptr;
+i2s_chan_handle_t rx_chan = nullptr;
 
 esp_err_t audio_init(void)
 {
-    // === 1. Create TX and RX channels ===
+    // === 1. Create TX (DAC) and RX (ADC) channels ===
     i2s_chan_config_t chan_cfg_tx = I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);
     i2s_chan_config_t chan_cfg_rx = I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_1, I2S_ROLE_MASTER);
-    ESP_ERROR_CHECK(i2s_new_channel(&chan_cfg_tx, &tx_chan, NULL));
-    ESP_ERROR_CHECK(i2s_new_channel(&chan_cfg_rx, NULL, &rx_chan));
 
-    // === 2. DAC (TX) config ===
+    ESP_RETURN_ON_ERROR(i2s_new_channel(&chan_cfg_tx, &tx_chan, nullptr), TAG, "TX channel creation failed");
+    ESP_RETURN_ON_ERROR(i2s_new_channel(&chan_cfg_rx, nullptr, &rx_chan), TAG, "RX channel creation failed");
+
+    // === 2. Configure DAC (TX) ===
     i2s_std_config_t std_cfg_tx = {
         .clk_cfg = {
             .sample_rate_hz = SAMPLE_RATE,
@@ -44,7 +47,7 @@ esp_err_t audio_init(void)
         },
     };
 
-    // === 3. ADC (RX) config ===
+    // === 3. Configure ADC (RX) ===
     i2s_std_config_t std_cfg_rx = {
         .clk_cfg = {
             .sample_rate_hz = SAMPLE_RATE,
@@ -73,11 +76,11 @@ esp_err_t audio_init(void)
         },
     };
 
-    // === 4. Initialize and enable ===
-    ESP_ERROR_CHECK(i2s_channel_init_std_mode(tx_chan, &std_cfg_tx));
-    ESP_ERROR_CHECK(i2s_channel_init_std_mode(rx_chan, &std_cfg_rx));
-    ESP_ERROR_CHECK(i2s_channel_enable(tx_chan));
-    ESP_ERROR_CHECK(i2s_channel_enable(rx_chan));
+    // === 4. Initialize & enable both channels ===
+    ESP_RETURN_ON_ERROR(i2s_channel_init_std_mode(tx_chan, &std_cfg_tx), TAG, "TX init failed");
+    ESP_RETURN_ON_ERROR(i2s_channel_init_std_mode(rx_chan, &std_cfg_rx), TAG, "RX init failed");
+    ESP_RETURN_ON_ERROR(i2s_channel_enable(tx_chan), TAG, "TX enable failed");
+    ESP_RETURN_ON_ERROR(i2s_channel_enable(rx_chan), TAG, "RX enable failed");
 
     ESP_LOGI(TAG, "Audio I2S initialized (48 kHz, 16-bit, master mode)");
     return ESP_OK;

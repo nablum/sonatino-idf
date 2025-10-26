@@ -2,12 +2,13 @@
 idf_component_register(
     SRCS
         "main.cpp"
-        "audioconfig.c"
+        "audioconfig.cpp"
     INCLUDE_DIRS
         "."
     REQUIRES
         driver
         esp_driver_i2s
+        esp_driver_gpio
         daisysp
 )
 
