@@ -57,6 +57,9 @@ dkms.conf
 # OS files
 *.DS_Store
 
+# IDE files
+/.vscode
+
 # Build files
 /build
 sdkconfig
