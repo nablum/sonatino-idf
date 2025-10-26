@@ -1,10 +1,17 @@
-# Edit following two lines to set component requirements (see docs)
-set(COMPONENT_REQUIRES )
-set(COMPONENT_PRIV_REQUIRES )
+# Register main component
+idf_component_register(
+    SRCS 
+        "main.cpp"
+        "audioconfig.c"
+    INCLUDE_DIRS 
+        "."
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+    REQUIRES 
+        driver
+        esp_driver_i2s
+        daisysp
+)
 
-# Source files for this component
-set(COMPONENT_SRCS "main.c")
-set(COMPONENT_ADD_INCLUDEDIRS "")
-
-idf_component_register(SRCS "main.c" "audioconfig.c" INCLUDE_DIRS ".")
-
+# Apply warning suppression flags as a list
+set(EXTRA_CXX_FLAGS "-Wno-ignored-qualifiers;-Wno-error=ignored-qualifiers")
+target_compile_options(${COMPONENT_LIB} PRIVATE ${EXTRA_CXX_FLAGS})
