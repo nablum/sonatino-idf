@@ -62,5 +62,4 @@ dkms.conf
 
 # Build files
 /build
-sdkconfig
-sdkconfig.old
+sdkconfig*
