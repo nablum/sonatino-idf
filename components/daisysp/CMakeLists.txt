@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # Path to the upstream DaisySP cloned as a submodule
-set(DAISYSP_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../third_party/daisysp)
+set(DAISYSP_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../daisysp)
 
 # Collect sources
 file(GLOB_RECURSE DAISYSP_SRCS 
