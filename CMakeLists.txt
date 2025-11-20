@@ -34,4 +34,5 @@ set(COMPONENTS
     esp_pm        # safe to include; some drivers reference PM APIs
 )
 
-project(audio-playback-esp32)
+# Set the project name and version
+project(sonatino-idf VERSION 0.0.1)
