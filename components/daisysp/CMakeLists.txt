@@ -33,7 +33,7 @@ target_compile_definitions(${COMPONENT_LIB} PUBLIC
     DSY_REVERBSC_MAX_SIZE=32768
 )
 
-# compile-time options
+# Compile-time options
 target_compile_options(${COMPONENT_LIB} PUBLIC
     -Os
     -Wno-extra
