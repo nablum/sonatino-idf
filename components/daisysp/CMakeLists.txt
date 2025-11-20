@@ -21,10 +21,9 @@ message(STATUS "${PATCH_OUTPUT}")
 # Register DaisySP component with ESP-IDF
 idf_component_register(
     SRCS
-    ${PATCHED_DAISYSP_ROOT}/DaisySP-LGPL/Source/Effects/reverbsc.cpp
+    ${PATCHED_DAISYSP_ROOT}/Source/Effects/reverbsc.cpp
     INCLUDE_DIRS
     ${PATCHED_DAISYSP_ROOT}/Source
-    ${PATCHED_DAISYSP_ROOT}/DaisySP-LGPL/Source/
 )
 
 # Compile-time definitions

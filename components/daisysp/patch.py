@@ -53,13 +53,11 @@ def main():
     macros = sys.argv[2:]
     src1 = daisysp_root / "Source"
     src2 = daisysp_root / "DaisySP-LGPL/Source"
-    dst = Path(__file__).parent.parent.parent / "build/patch/daisysp"
-    dst1 = dst / "Source"
-    dst2 = dst / "DaisySP-LGPL/Source"
-    print(f"Copying {src1} to {dst1}")
-    copy_tree(src1, dst1)
-    print(f"Copying {src2} to {dst2}")
-    copy_tree(src2, dst2)
+    dst = Path(__file__).parent.parent.parent / "build/patch/daisysp/Source"
+    print(f"Copying {src1} to {dst}")
+    copy_tree(src1, dst)
+    print(f"Copying {src2} to {dst}")
+    copy_tree(src2, dst)
     print("Patching macros in headers...")
     patch_headers(dst, macros)
     print("Done.")
