@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # Path to the upstream DaisySP cloned as a submodule and its patched version
-set(DAISYSP_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../third_party/daisysp)
+set(DAISYSP_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../daisysp)
 set(PATCHED_DAISYSP_ROOT ${CMAKE_BINARY_DIR}/patch/daisysp)
 
 # Patch DaisySP library into build/patch/daisysp
