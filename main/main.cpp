@@ -3,20 +3,13 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
-
-// C audio I2S setup
-extern "C" {
-    #include "audioconfig.h"
-}
-
-// DaisySP library
+#include "audioconfig.h"
 #include "daisysp.h"
-using namespace daisysp;
 
 static const char* TAG = "MAIN_DSP";
 
 // -------- Reverb parameters --------
-static ReverbSc reverb;
+static daisysp::ReverbSc reverb;
 static float    wet_mix   = 0.35f;     // 0=dry, 1=fully wet
 static float    feedback  = 0.65f;     // reduced for smaller memory usage (normally 0.7-0.9)
 static float    lpf_hz    = 10000.0f;  // slightly darker to mask shorter tail

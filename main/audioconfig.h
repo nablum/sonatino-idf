@@ -4,10 +4,6 @@
 #include "driver/gpio.h"
 #include "esp_err.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // Common audio parameters
 #define SAMPLE_RATE     48000
 #define BITS_PER_SAMPLE 16
@@ -29,7 +25,3 @@ extern i2s_chan_handle_t rx_chan;
 
 // Function prototype
 esp_err_t audio_init(void);
-
-#ifdef __cplusplus
-}
-#endif
