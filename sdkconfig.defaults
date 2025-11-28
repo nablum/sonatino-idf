@@ -1,0 +1,7 @@
+# Default SDK config
+# Notes:
+# - This file contains commonly-used sdkconfig entries. Kconfig variable names
+#   can vary between ESP-IDF versions; run `idf.py menuconfig` to verify.
+
+# Set SoC Target
+CONFIG_IDF_TARGET="esp32s3"
